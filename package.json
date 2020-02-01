@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"{\"a\":1,\"b\":2,\"c\":[1,2,3,4,5],\"d\":{\"a\":2}}\" | node index.js",
-    "debug": "echo \"{\"a\":1,\"b\":2,\"c\":[1,2,3,4,5],\"d\":{\"a\":2}}\" | node --inspect-brk index.js"
+  "bin": {
+    "jc": "index.js",
+    "jct": "index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "test": "node output.js | node index.js",
+    "debug": "node output.js | node --inspect-brk index.js"
+  },
+  "keywords": [
+    "json",
+    "cli"
+  ],
+  "author": "Nir Adler",
+  "license": "MIT",
   "dependencies": {
     "lodash.filter": "^4.6.0",
     "lodash.get": "^4.4.2",
