@@ -1,0 +1,20 @@
+{
+  "name": "json-cli-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"{\"a\":1,\"b\":2,\"c\":[1,2,3,4,5],\"d\":{\"a\":2}}\" | node index.js",
+    "debug": "echo \"{\"a\":1,\"b\":2,\"c\":[1,2,3,4,5],\"d\":{\"a\":2}}\" | node --inspect-brk index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash.filter": "^4.6.0",
+    "lodash.get": "^4.4.2",
+    "lodash.map": "^4.6.0",
+    "lodash.set": "^4.3.2",
+    "minimist": "^1.2.0"
+  }
+}
