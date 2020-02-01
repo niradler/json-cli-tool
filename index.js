@@ -49,15 +49,14 @@ const transformParams = params => {
 
 const normalize = value => {
   switch (value) {
-    case !isNaN(value):
-      value = Number(value);
-      break;
-    case value == "true":
+    case "true":
       value = true;
       break;
-    case value == "false":
+    case "false":
       value = false;
       break;
+    default:
+      if (!isNaN(value)) value = Number(value);
   }
 
   return value;
@@ -110,7 +109,7 @@ function withPipe(data) {
           console.log(Object.values(obj));
           break;
         default:
-          console.error("command not found.");
+          console.error("command not found: ", cmd);
           break;
       }
       return;
