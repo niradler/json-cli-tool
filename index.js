@@ -20,11 +20,7 @@ const output = (obj, type, limit) => {
       console.log(JSON.stringify(obj));
       break;
     case "newline":
-      if (Array.isArray(obj)) {
-        console.log(obj.join("\n"));
-      } else {
-        console.log(obj);
-      }
+      console.log(obj.join("\n"));
       break;
     default:
       console.log(obj);
@@ -141,7 +137,8 @@ function withPipe(data) {
         obj = _map(p, obj, true);
       }
     }
-    if (obj.length && obj.length == 1) obj = obj[0];
+    if (Array.isArray(obj) && obj.length == 1) obj = obj[0];
+
     output(obj, jsonFormat, limit);
   } catch (error) {
     console.error("couldn't parsed: " + error.message);
