@@ -19,6 +19,13 @@ const output = (obj, type, limit) => {
     case "stringify":
       console.log(JSON.stringify(obj));
       break;
+    case "newline":
+      if (Array.isArray(obj)) {
+        console.log(obj.join("\n"));
+      } else {
+        console.log(obj);
+      }
+      break;
     default:
       console.log(obj);
       break;
@@ -62,14 +69,18 @@ const normalize = value => {
   return value;
 };
 
-const _map = (fields, data) => {
+const _map = (fields, data, flat) => {
   if (!Array.isArray(data)) data = [data];
   fields = fields.includes(",") ? fields.split(",") : [fields];
 
   return data.map(d => {
-    const obj = {};
-    fields.forEach(f => set(obj, f, get(d, f)));
-    return Object.keys(obj).length == 0 ? undefined : obj;
+    if (flat) {
+      return get(d, fields[0]);
+    } else {
+      const obj = {};
+      fields.forEach(f => set(obj, f, get(d, f)));
+      return Object.keys(obj).length == 0 ? undefined : obj;
+    }
   });
 };
 
@@ -124,6 +135,10 @@ function withPipe(data) {
       if ((argv.filter || argv.f) && Array.isArray(obj)) {
         let term = argv.filter || argv.f;
         obj = _filter(obj, term);
+      }
+      if (argv.flatMap || argv.fm) {
+        let p = argv.flatMap || argv.fm;
+        obj = _map(p, obj, true);
       }
     }
     if (obj.length && obj.length == 1) obj = obj[0];
