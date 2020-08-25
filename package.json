@@ -1,6 +1,6 @@
 {
   "name": "json-cli-tool",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "cli tool to manipulate json data.",
   "main": "index.js",
   "bin": {

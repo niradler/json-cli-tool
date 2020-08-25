@@ -20,7 +20,12 @@ const output = (obj, type, limit) => {
       console.log(JSON.stringify(obj));
       break;
     case "newline":
-      console.log(obj.join("\n"));
+      console.log(
+        obj
+          .map((v) => Object.values(v))
+          .flat()
+          .join("\n")
+      );
       break;
     default:
       console.log(obj);
@@ -29,28 +34,28 @@ const output = (obj, type, limit) => {
 };
 
 const _filter = (obj, term) => {
-  return obj.filter(o => {
+  return obj.filter((o) => {
     let q = {};
     q = transformParams(term);
     q = Object.assign({}, q);
     if (typeof o == "object") {
       const keys = Object.keys(q);
-      let isEqual = keys.map(key => {
+      let isEqual = keys.map((key) => {
         return get(o, key) == normalize(get(q, key));
       });
 
-      return !isEqual.some(b => b == false);
+      return !isEqual.some((b) => b == false);
     } else {
       return get(q, o) == o;
     }
   });
 };
 
-const transformParams = params => {
+const transformParams = (params) => {
   return querystring.decode(params);
 };
 
-const normalize = value => {
+const normalize = (value) => {
   switch (value) {
     case "true":
       value = true;
@@ -69,12 +74,12 @@ const _map = (fields, data, flat) => {
   if (!Array.isArray(data)) data = [data];
   fields = fields.includes(",") ? fields.split(",") : [fields];
 
-  return data.map(d => {
+  return data.map((d) => {
     if (flat) {
       return get(d, fields[0]);
     } else {
       const obj = {};
-      fields.forEach(f => set(obj, f, get(d, f)));
+      fields.forEach((f) => set(obj, f, get(d, f)));
       return Object.keys(obj).length == 0 ? undefined : obj;
     }
   });
@@ -150,7 +155,7 @@ function withoutPipe() {
 }
 
 var self = process.stdin;
-self.on("readable", function() {
+self.on("readable", function () {
   var chunk = this.read();
   if (chunk === null) {
     if (!_data) withoutPipe();
@@ -158,6 +163,6 @@ self.on("readable", function() {
     _data += chunk;
   }
 });
-self.on("end", function() {
+self.on("end", function () {
   withPipe(_data);
 });
