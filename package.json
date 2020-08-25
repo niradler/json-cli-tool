@@ -4,12 +4,12 @@
   "description": "cli tool to manipulate json data.",
   "main": "index.js",
   "bin": {
-    "jc": "index.js",
-    "jct": "index.js"
+    "jc": "jc.js",
+    "jct": "jc.js"
   },
   "scripts": {
-    "test": "node output.js | node index.js",
-    "debug": "node output.js | node --inspect-brk index.js"
+    "test": "node output.js | node jc.js",
+    "debug": "node output.js | node --inspect-brk jc.js"
   },
   "keywords": [
     "json",
@@ -22,6 +22,6 @@
     "lodash.get": "^4.4.2",
     "lodash.map": "^4.6.0",
     "lodash.set": "^4.3.2",
-    "minimist": "^1.2.0"
+    "yargs": "^15.4.1"
   }
 }
