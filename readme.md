@@ -12,6 +12,7 @@ npm i -g json-cli-tool
 
 ```
 {output json} | jc --path="names" --filter="name=jay" --map="name"
+{output json} | jc --query=".names[]" // jmespath compatible
 {output json} | jc keys
 {output json} | jc values
 ```

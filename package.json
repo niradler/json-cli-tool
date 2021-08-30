@@ -1,6 +1,6 @@
 {
   "name": "json-cli-tool",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "cli tool to manipulate json data.",
   "main": "index.js",
   "bin": {
@@ -18,10 +18,20 @@
   "author": "Nir Adler",
   "license": "MIT",
   "dependencies": {
+    "jmespath": "^0.15.0",
     "lodash.filter": "^4.6.0",
     "lodash.get": "^4.4.2",
     "lodash.map": "^4.6.0",
     "lodash.set": "^4.3.2",
     "minimist": "^1.2.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niradler/json-cli-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niradler/json-cli-tool/issues"
+  },
+  "homepage": "https://github.com/niradler/json-cli-tool#readme"
 }

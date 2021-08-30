@@ -3,6 +3,7 @@ const minimist = require("minimist");
 const get = require("lodash.get");
 const set = require("lodash.set");
 const querystring = require("querystring");
+const jPath = require("jmespath");
 var _data = "";
 
 const output = (obj, type, limit) => {
@@ -109,6 +110,8 @@ function withPipe(data) {
 
     if (argv.path || argv.p) {
       obj = get(json, argv.path || argv.p, undefined);
+    } else if (argv.query || argv.q) {
+      obj = jPath.search(json, argv.query || argv.q);
     }
 
     if (argv["_"].length == 1) {
