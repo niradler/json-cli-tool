@@ -1,6 +1,6 @@
 {
   "name": "json-cli-tool",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "cli tool to manipulate json data.",
   "main": "index.js",
   "bin": {
@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "node output.js | node index.js",
+    "fail": "node index.js",
     "debug": "node output.js | node --inspect-brk index.js"
   },
   "keywords": [
@@ -23,9 +24,8 @@
     "lodash.get": "^4.4.2",
     "lodash.map": "^4.6.0",
     "lodash.set": "^4.3.2",
-    "minimist": "^1.2.0"
+    "yargs": "^17.1.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/niradler/json-cli-tool.git"
