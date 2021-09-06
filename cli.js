@@ -10,19 +10,14 @@ const cli = (data) => {
       (yargs) => {},
       (argv) => {}
     )
-    .example([['$0 jc keys --path="cars"', "Print cars object keys"]])
+    .example([['$0 keys --path="cars"', "Goto .cars, and Print keys"]])
     .command(
       "values",
       "Object values",
       (yargs) => {},
       (argv) => {}
     )
-    .example([
-      [
-        '$0 jc values --path="names" --map="value"',
-        "Goto .names array, and return .value on each key",
-      ],
-    ])
+    .example([['$0 values --path="names"', "Goto .names, and Print values"]])
     .option("path", {
       alias: "p",
       type: "string",
@@ -69,6 +64,7 @@ const cli = (data) => {
 
     .usage('$0 [keys|values] --path="cars"')
     .help("help")
+    .scriptName("jc")
     .fail(function (msg, err, yargs) {
       if (err) throw err; // preserve stack
       console.error("You broke it!");
