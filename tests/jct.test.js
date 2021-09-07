@@ -95,3 +95,31 @@ test("Limit test", async () => {
 
   expect(stdout).toBe(JSON.stringify([1, 2, 3]));
 });
+
+test("Keys test", async () => {
+  const { stdout } = await execa("npm", [
+    "run",
+    "parse",
+    "-s",
+    "--",
+    "keys",
+    '--path="d"',
+    '--output="stringify"',
+  ]);
+
+  expect(stdout).toBe(JSON.stringify(["a", "b"]));
+});
+
+test("Values test", async () => {
+  const { stdout } = await execa("npm", [
+    "run",
+    "parse",
+    "-s",
+    "--",
+    "values",
+    '--path="d"',
+    '--output="stringify"',
+  ]);
+
+  expect(stdout).toBe(JSON.stringify([2, 3]));
+});
