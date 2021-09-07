@@ -1,6 +1,6 @@
 {
   "name": "json-cli-tool",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "cli tool to manipulate json data.",
   "preferGlobal": true,
   "main": "index.js",
@@ -9,8 +9,9 @@
     "jct": "index.js"
   },
   "scripts": {
-    "test": "node output.js | node index.js",
-    "fail": "node index.js",
+    "parse": "node tests/output.js | node index.js",
+    "start": "node index.js",
+    "test": "jest",
     "debug": "node output.js | node --inspect-brk index.js"
   },
   "keywords": [
@@ -22,6 +23,7 @@
   "author": "Nir Adler",
   "license": "MIT",
   "dependencies": {
+    "execa": "^5.1.1",
     "jmespath": "^0.15.0",
     "lodash.filter": "^4.6.0",
     "lodash.get": "^4.4.2",
@@ -36,5 +38,8 @@
   "bugs": {
     "url": "https://github.com/niradler/json-cli-tool/issues"
   },
-  "homepage": "https://github.com/niradler/json-cli-tool#readme"
+  "homepage": "https://github.com/niradler/json-cli-tool#readme",
+  "devDependencies": {
+    "jest": "^27.1.0"
+  }
 }

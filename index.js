@@ -21,7 +21,7 @@ stdin.on("end", function () {
   try {
     end();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     process.exit(1);
   }
 });

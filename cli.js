@@ -1,6 +1,8 @@
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const json = require("./json");
+const path = require("path");
+const fs = require("fs");
 
 const cli = (data) => {
   const argv = yargs(hideBin(process.argv))
@@ -47,7 +49,7 @@ const cli = (data) => {
       describe: "Output format",
       description: "Output format",
       default: "log",
-      choices: ["table", "log", "stringify", "newline"],
+      choices: ["table", "log", "stringify", "newline", "env", "count"],
     })
     .option("limit", {
       alias: "l",
@@ -61,7 +63,12 @@ const cli = (data) => {
       description: "Flatmap array function",
       describe: "Flatmap array function",
     })
-
+    .option("config", {
+      alias: "c",
+      type: "string",
+      description: "config file path",
+      describe: "config file path",
+    })
     .usage('$0 [keys|values] --path="cars"')
     .help("help")
     .scriptName("jc")
@@ -73,15 +80,23 @@ const cli = (data) => {
       process.exit(1);
     }).argv;
 
-  let jsonObject = json.parse(data);
-  if (argv.path) {
-    jsonObject = json.get(jsonObject, argv.path, undefined);
-  } else if (argv.query) {
-    jsonObject = json.search(jsonObject, argv.query, undefined);
+  let params = argv;
+  if (argv.config) {
+    let filePath = path.normalize(argv.config);
+    const isAbsolute = path.isAbsolute(filePath);
+    filePath = isAbsolute ? filePath : path.join(process.cwd(), filePath);
+    params = { ...JSON.parse(fs.readFileSync(filePath)), ...params };
   }
 
-  if (Array.isArray(argv["_"]) && argv["_"].length === 1) {
-    switch (argv["_"][0]) {
+  let jsonObject = json.parse(data);
+  if (params.path) {
+    jsonObject = json.get(jsonObject, params.path, undefined);
+  } else if (params.query) {
+    jsonObject = json.search(jsonObject, params.query, undefined);
+  }
+
+  if (Array.isArray(params["_"]) && params["_"].length === 1) {
+    switch (params["_"][0]) {
       case "keys":
         jsonObject = Object.keys(jsonObject);
         break;
@@ -96,22 +111,22 @@ const cli = (data) => {
   }
 
   if (typeof jsonObject === "object") {
-    if (argv.map) {
-      jsonObject = json.map(argv.map, jsonObject);
+    if (params.map) {
+      jsonObject = json.map(params.map, jsonObject);
     }
-    if (argv.flatMap) {
-      jsonObject = json.map(argv.flatMap, jsonObject, true);
+    if (params.flatMap) {
+      jsonObject = json.map(params.flatMap, jsonObject, true);
     }
-    if (argv.filter && Array.isArray(jsonObject)) {
-      jsonObject = json.filter(jsonObject, argv.filter);
+    if (params.filter && Array.isArray(jsonObject)) {
+      jsonObject = json.filter(jsonObject, params.filter);
     }
   }
   if (Array.isArray(jsonObject) && jsonObject.length == 1) {
     jsonObject = jsonObject[0];
   }
 
-  json.output(jsonObject, argv.output, argv.limit);
-  return argv;
+  json.output(jsonObject, params.output, params.limit);
+  return params;
 };
 
 module.exports = cli;

@@ -7,7 +7,25 @@ const output = (obj, type, limit) => {
   if (limit && Array.isArray(obj)) {
     obj = obj.slice(0, Number(limit));
   }
+  let print = "";
   switch (type) {
+    case "env":
+      if (typeof obj === "object") {
+        print = "";
+        const keys = Object.keys(obj);
+        keys.forEach((key, i) => {
+          print += `${key}=${obj[key]}${i === keys.length - 1 ? "" : "\n"}`;
+        });
+        console.log(print);
+      }
+      break;
+    case "count":
+      if (Array.isArray(obj)) {
+        console.table(obj.length);
+      } else if (typeof obj === "object") {
+        console.table(Object.keys(obj).length);
+      }
+      break;
     case "table":
       console.table(obj);
       break;
@@ -18,12 +36,26 @@ const output = (obj, type, limit) => {
       console.log(JSON.stringify(obj));
       break;
     case "newline":
-      console.log(
-        obj
-          .map((v) => Object.values(v))
+      print = "";
+      if (Array.isArray(obj)) {
+        print = obj
+          .map((v) => {
+            try {
+              v = JSON.stringify(v);
+            } catch (error) {}
+            return v;
+          })
           .flat()
-          .join("\n")
-      );
+          .join("\n");
+      } else if (typeof obj === "object") {
+        print = [];
+        Object.keys(obj).forEach((key) => {
+          print.push(key);
+          print.push(obj[key]);
+        });
+        print = print.flat().join("\n");
+      }
+      console.log(print);
       break;
     default:
       console.log(obj);

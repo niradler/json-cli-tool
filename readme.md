@@ -1,6 +1,6 @@
 # JSON CLI Tool
 
-Extract map and filter json output.
+Extract map and filter json output. (lightweight jq alternative)
 
 # Installation
 
