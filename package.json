@@ -1,6 +1,6 @@
 {
   "name": "json-cli-tool",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "cli tool to manipulate json data.",
   "preferGlobal": true,
   "main": "index.js",
@@ -12,6 +12,7 @@
     "parse": "node tests/output.js | node index.js",
     "start": "node index.js",
     "test": "jest",
+    "prepare": "npm run test",
     "debug": "node output.js | node --inspect-brk index.js"
   },
   "keywords": [
