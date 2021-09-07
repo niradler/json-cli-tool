@@ -1,6 +1,6 @@
 const get = require("lodash.get");
 const set = require("lodash.set");
-const querystring = require("querystring");
+const { URLSearchParams } = require("url");
 const jPath = require("jmespath");
 
 const output = (obj, type, limit) => {
@@ -65,15 +65,12 @@ const output = (obj, type, limit) => {
 
 const filterFn = (obj, term) => {
   return obj.filter((o) => {
-    let q = {};
-    q = transformParams(term);
-    q = Object.assign({}, q);
+    const q = transformParams(term);
     if (typeof o == "object") {
       const keys = Object.keys(q);
       let isEqual = keys.map((key) => {
         return get(o, key) == normalize(get(q, key));
       });
-
       return !isEqual.some((b) => b == false);
     } else {
       return get(q, o) == o;
@@ -82,7 +79,8 @@ const filterFn = (obj, term) => {
 };
 
 const transformParams = (params) => {
-  return querystring.decode(params);
+  const queryParams = new URLSearchParams(params);
+  return Object.fromEntries(queryParams);
 };
 
 const normalize = (value) => {

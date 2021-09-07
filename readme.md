@@ -10,18 +10,18 @@ npm i -g json-cli-tool
 
 # Usage
 
-```
+```sh
 jc help
 ```
 
-```
-{output json} | jc --path="names" --filter="name=jay" --map="name"
-{output json} | jc --query=".names[]" // jmespath compatible
-{output json} | jc keys
-{output json} | jc values
+```sh
+{json} | jc --path="names" --filter="name=jay" --map="name"
+{json} | jc --query=".names[]" // jmespath compatible
+{json} | jc keys
+{json} | jc values
 ```
 
-```
-gkc search repos -p="q=org:niradler" | jc --p="items" --m="name,fork" --f="fork=false"
-
+```sh
+echo '{"a":1,"b":2,"c":[1,2,3,4,5],"d":{"a":2,"b":3},"e":[{"a":1,"b":2,"c":[1,2,3,4,5],"d":{"a":2,"b":5}},{"a":2,"b":3,"c":[1,2,3,4,5],"d":{"a":2,"b":4}}]}' | jc --p="e" --m="a,b" --f="a=2"
+# { a: 2, b: 3 }
 ```

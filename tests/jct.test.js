@@ -46,7 +46,7 @@ test("Filter test", async () => {
     "-s",
     "--",
     '--path="e"',
-    '--filter="a=2"',
+    "--filter='a=2&b=3'",
     '--map="a,b"',
     '--output="stringify"',
   ]);
