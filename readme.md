@@ -15,6 +15,32 @@ jc help
 ```
 
 ```sh
+jc [keys|values] --path="cars"
+
+Commands:
+  jc keys    Object keys
+  jc values  Object values
+
+Options:
+      --version        Show version number                             [boolean]
+  -p, --path           path in json                                     [string]
+  -f, --filter         Filter array function                            [string]
+  -m, --map            Map array function                               [string]
+  -q, --query          Query json using jamespath                       [string]
+  -o, --output         Output format
+     [choices: "table", "log", "stringify", "newline", "env", "count"] [default:
+                                                                          "log"]
+  -l, --limit          Limit array size                                 [number]
+      --flatMap, --fm  Flatmap array function                           [string]
+  -c, --config         config file path                                 [string]
+      --help           Show help                                       [boolean]
+
+Examples:
+  jc keys --path="cars"     Goto .cars, and Print keys
+  jc values --path="names"  Goto .names, and Print values
+```
+
+```sh
 {json} | jc --path="names" --filter="name=jay" --map="name"
 {json} | jc --query=".names[]" // jmespath compatible
 {json} | jc keys
