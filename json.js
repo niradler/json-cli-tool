@@ -41,7 +41,7 @@ const output = (obj, type, limit) => {
         print = obj
           .map((v) => {
             try {
-              v = JSON.stringify(v);
+              if (typeof v == "object") v = JSON.stringify(v);
             } catch (error) {}
             return v;
           })
